@@ -137,6 +137,9 @@ async def send_chat_message(input: ChatMessageCreate):
             "assistant_message": assistant_message
         }
 
+    except HTTPException:
+        # Re-raise HTTP exceptions (like 404) without modification
+        raise
     except Exception as e:
         logging.error(f"Chat error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Chat error: {str(e)}")
