@@ -1,0 +1,93 @@
+{
+  "summary": {
+    "passed": 8,
+    "failed": 1,
+    "total": 9
+  },
+  "results": [
+    {
+      "test": "Root Endpoint",
+      "success": true,
+      "message": "API root accessible",
+      "timestamp": "2025-09-19T07:28:01.343931",
+      "details": null
+    },
+    {
+      "test": "Create Session",
+      "success": true,
+      "message": "Session created with ID: b5768ccf-3403-46f6-af0c-3964130dabc8",
+      "timestamp": "2025-09-19T07:28:01.866437",
+      "details": null
+    },
+    {
+      "test": "List Sessions",
+      "success": true,
+      "message": "Retrieved 1 sessions",
+      "timestamp": "2025-09-19T07:28:02.374801",
+      "details": null
+    },
+    {
+      "test": "Session Persistence",
+      "success": true,
+      "message": "Test session found in session list",
+      "timestamp": "2025-09-19T07:28:02.374853",
+      "details": null
+    },
+    {
+      "test": "Gemini AI Integration",
+      "success": true,
+      "message": "Gemini responded correctly: Hello! The answer to 2 + 2 is **4**.\n\nHere's the explanation:\n\n*   **Basic Addition:** Addition is t...",
+      "timestamp": "2025-09-19T07:28:04.743270",
+      "details": null
+    },
+    {
+      "test": "Send Chat Message",
+      "success": true,
+      "message": "Chat message sent and AI response received",
+      "timestamp": "2025-09-19T07:28:04.743306",
+      "details": null
+    },
+    {
+      "test": "Get Chat History",
+      "success": true,
+      "message": "Retrieved 2 messages with correct roles",
+      "timestamp": "2025-09-19T07:28:05.253945",
+      "details": null
+    },
+    {
+      "test": "Multi-turn Conversation",
+      "success": true,
+      "message": "Follow-up message handled correctly",
+      "timestamp": "2025-09-19T07:28:06.220229",
+      "details": null
+    },
+    {
+      "test": "Invalid Session Error Handling",
+      "success": false,
+      "message": "Expected 404, got 500",
+      "timestamp": "2025-09-19T07:28:06.731331",
+      "details": null
+    },
+    {
+      "test": "Empty Message Handling",
+      "success": true,
+      "message": "Handled empty message appropriately (HTTP 200)",
+      "timestamp": "2025-09-19T07:28:07.769450",
+      "details": null
+    },
+    {
+      "test": "Delete Session",
+      "success": true,
+      "message": "Session deleted successfully",
+      "timestamp": "2025-09-19T07:28:08.282031",
+      "details": null
+    },
+    {
+      "test": "Session Deletion Verification",
+      "success": true,
+      "message": "Session successfully removed from database",
+      "timestamp": "2025-09-19T07:28:08.330136",
+      "details": null
+    }
+  ]
+}
