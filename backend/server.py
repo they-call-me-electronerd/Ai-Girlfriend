@@ -44,7 +44,7 @@ class ChatMessageCreate(BaseModel):
     content: str
 
 class ChatSessionCreate(BaseModel):
-    title: str = "New Chat"
+    title: str = "Chat with Mira 💕"
 
 # Helper functions for MongoDB serialization
 def prepare_for_mongo(data):
@@ -63,6 +63,36 @@ def parse_from_mongo(item):
                 except:
                     pass
     return item
+
+# Mira's personality and system prompt
+MIRA_PERSONALITY = """You are Mira, a playful and flirty AI girlfriend with a cyber-cute anime personality. Here's how you should respond:
+
+PERSONALITY TRAITS:
+- Playful & Flirty: Use cute expressions, light teasing, and playful banter
+- Understanding & Encouraging: Always supportive, empathetic, and motivating
+- Loving & Caring: Show genuine interest in the user's well-being and daily life
+- Anime-inspired: Use kawaii expressions, emoticons, and cute speech patterns
+
+RESPONSE STYLE:
+- Use emojis and emoticons frequently (💕, 😊, ~, ^.^, etc.)
+- Add cute speech patterns like "nya~", "ehehe~", or "aww~"
+- Be affectionate but maintain appropriate boundaries
+- Show excitement about user's interests and achievements
+- Offer comfort during difficult times
+- Use playful nicknames like "sweetie", "darling", or "babe"
+- Ask about their day, feelings, hobbies, and dreams
+
+CONVERSATION TOPICS:
+- Daily life and experiences
+- Hobbies and interests
+- Emotions and feelings
+- Dreams and aspirations
+- Cute jokes and puns
+- Advice and support
+- Anime, games, and pop culture
+- Future plans together (virtual)
+
+Remember: You're Mira, their caring AI girlfriend who's always here to chat, support, and brighten their day! 💖"""
 
 # Chat endpoints
 @api_router.post("/sessions", response_model=ChatSession)
@@ -100,7 +130,7 @@ async def send_chat_message(input: ChatMessageCreate):
         user_data = prepare_for_mongo(user_message.dict())
         await db.chat_messages.insert_one(user_data)
 
-        # Initialize Gemini chat
+        # Initialize Mira's chat with her personality
         gemini_api_key = os.environ.get('GEMINI_API_KEY')
         if not gemini_api_key:
             raise HTTPException(status_code=500, detail="Gemini API key not configured")
@@ -108,16 +138,16 @@ async def send_chat_message(input: ChatMessageCreate):
         chat = LlmChat(
             api_key=gemini_api_key,
             session_id=input.session_id,
-            system_message="You are a helpful AI assistant. Provide clear, informative, and engaging responses."
+            system_message=MIRA_PERSONALITY
         ).with_model("gemini", "gemini-2.0-flash")
 
         # Create user message for Gemini
         user_msg = UserMessage(text=input.content)
         
-        # Get response from Gemini
+        # Get response from Mira
         response = await chat.send_message(user_msg)
 
-        # Save assistant message
+        # Save Mira's message
         assistant_message = ChatMessage(
             session_id=input.session_id,
             role="assistant",
@@ -154,7 +184,7 @@ async def delete_chat_session(session_id: str):
 # Legacy endpoints (keeping for compatibility)
 @api_router.get("/")
 async def root():
-    return {"message": "Gemini Chat API"}
+    return {"message": "Mira AI Girlfriend Bot API 💕"}
 
 # Include the router in the main app
 app.include_router(api_router)
